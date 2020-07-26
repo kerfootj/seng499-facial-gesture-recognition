@@ -1,11 +1,12 @@
 import numpy as np
 import cv2
-import dlib
+from keras import models
 
 cap = cv2.VideoCapture(0)
 
 face_cascade = cv2.CascadeClassifier('cascades/haarcascade_frontalface_default.xml') 
 eye_cascade = cv2.CascadeClassifier('cascades/haarcascade_eye.xml') 
+pretrained_model = models.load_model('models/model_v6_23.hdf5')
 smile_cascade = cv2.CascadeClassifier('cascades/haarcascade_smile.xml') 
 
 def detect(gray, frame):
