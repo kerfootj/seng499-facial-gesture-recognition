@@ -15,6 +15,7 @@ import os
 number_classes = 7
 image_row, image_col = 48, 48
 batch_size = 512
+epochs = 100
 
 x_train = []
 y_train = []
@@ -69,8 +70,7 @@ y_test = numpy.asarray(y_train)
 model.compile(loss='categorical_crossentropy',optimizer=Adam(lr=0.0001, decay=1e-6),metrics=['accuracy'])
 
 
-filepath = os.path.join('./generated_models/{epoch}.hdf5')
-
+filepath = os.path.normpath(os.path.join(f'./generated_models/batch_{batch_size}.epochs_{epochs}.hdf5'))
 checkpoint = keras.callbacks.ModelCheckpoint(filepath,
                                              monitor='val_accuracy',
                                              verbose=1,
@@ -78,14 +78,13 @@ checkpoint = keras.callbacks.ModelCheckpoint(filepath,
                                              mode='max',
                                              )
 callbacks = [checkpoint]
-epochs = 150
 model_info = model.fit(
     x = x_train,
     y = y_train,
-    # batch_size=512,
+    batch_size=batch_size,
     validation_data=(x_test, y_test),
     # steps_per_epoch=10,
-    epochs=100,
+    epochs=epochs,
     callbacks=callbacks,
     validation_steps = 20
 )
@@ -96,4 +95,5 @@ plt.title('model loss')
 plt.ylabel('loss')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
+plt.savefig(os.path.normpath(f'./results/pngs/batch_{batch_size}.epochs_{epochs}.png'))
 plt.show()
