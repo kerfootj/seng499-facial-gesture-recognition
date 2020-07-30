@@ -6,7 +6,7 @@ from keras.preprocessing.image import img_to_array
 import numpy as np
 
 face_cascade = cv2.CascadeClassifier('cascades/haarcascade_frontalface_default.xml') 
-classifier = models.load_model('models/model_v6_23.hdf5')
+classifier = models.load_model('generated_models/batch_256.epochs_100.hdf5')
 
 <<<<<<< HEAD
 emotion_labels = {0: 'Angry', 1: 'Disgust', 2: 'Fear', 3: 'Happy', 4: 'Neutral', 5: 'Sad', 6: 'Surprise'}
