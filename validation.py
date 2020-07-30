@@ -28,6 +28,7 @@ with open ('test_data/test.csv', mode = 'r', encoding='utf-8-sig') as csv_file:
             correct_classifications+=1
         total_classifications+=1
 
+    print("Accuracy is: %s" % ((correct_classifications/total_classifications)*100))
     print(classification_report(y_true = y_true, y_pred = y_pred, labels = ["Angry", "Disgust", "Fear", "Happy", "Neutral", "Sad", "Surprise"]))
 
 
