@@ -9,7 +9,7 @@ face_cascade = cv2.CascadeClassifier('cascades/haarcascade_frontalface_default.x
 classifier = models.load_model('models/model_v6_23.hdf5')
 
 emotion_labels = {0: 'Angry', 1: 'Disgust', 2: 'Fear', 3: 'Happy', 4: 'Neutral', 5: 'Sad', 6: 'Surprise'}
-emotion_colors = {0: (255,0,0), 1: (0,166,0), 2: (148,0,211), 3: (255,255,0), 4: (255,255,255), 5: (0,191,255), 6: (255,140,0)}
+emotion_colors = {0: (0,0,255), 1: (0,166,0), 2: (211,0,148), 3: (0,255,255), 4: (255,255,255), 5: (255,191,0), 6: (0,140,255)}
 
 def face_detector(img):
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
