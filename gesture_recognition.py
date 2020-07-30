@@ -9,6 +9,7 @@ face_cascade = cv2.CascadeClassifier('cascades/haarcascade_frontalface_default.x
 classifier = models.load_model('models/model_v6_23.hdf5')
 
 emotion_labels = {0: 'Angry', 1: 'Disgust', 2: 'Fear', 3: 'Happy', 4: 'Neutral', 5: 'Sad', 6: 'Surprise'}
+emotion_colors = {0: (255,0,0), 1: (0,166,0), 2: (148,0,211), 3: (255,255,0), 4: (255,255,255), 5: (0,191,255), 6: (255,140,0)}
 
 def face_detector(img):
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
@@ -18,7 +19,7 @@ def face_detector(img):
         return (0,0,0,0), np.zeros((48,48), np.uint8), img
 
     for (x, y, w, h) in faces: 
-        cv2.rectangle(img, (x, y), ((x + w), (y + h)), (255, 0, 0), 2) 
+        cv2.rectangle(img, (x, y), ((x + w), (y + h)), (128,128,128), 2) 
         roi_gray = gray[y:y + h, x:x + w] 
 
         try:
@@ -41,13 +42,15 @@ def detect_from_video():
             roi = np.expand_dims(roi, axis=0)
 
             preds = classifier.predict(roi)[0]
-            label = emotion_labels[preds.argmax()]
+            index = preds.argmax()
+            color = emotion_colors[index]
+            label = emotion_labels[index]
             label_position = (rect[0] + int((rect[1]/2)), rect[2] + 25)
 
-            cv2.putText(image, label, label_position , cv2.FONT_HERSHEY_SIMPLEX,2, (0,255,0), 3)
+            cv2.putText(image, label, label_position , cv2.FONT_HERSHEY_SIMPLEX,2, color, 3)
 
         else:
-            cv2.putText(image, "No Face Found", (20, 60) , cv2.FONT_HERSHEY_SIMPLEX,2, (0,255,0), 3)
+            cv2.putText(image, "No Face Found", (20, 60) , cv2.FONT_HERSHEY_SIMPLEX,2, (128,128,128), 3)
 
         # Display the resulting frame
         cv2.imshow('icu', frame)
