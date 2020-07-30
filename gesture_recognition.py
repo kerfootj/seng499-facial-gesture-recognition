@@ -6,7 +6,7 @@ from keras.preprocessing.image import img_to_array
 import numpy as np
 
 face_cascade = cv2.CascadeClassifier('cascades/haarcascade_frontalface_default.xml') 
-classifier = models.load_model('models/model_v6_23.hdf5')
+classifier = models.load_model('generated_models/batch_256.epochs_100.hdf5')
 
 emotion_labels = {0: 'Angry', 1: 'Disgust', 2: 'Fear', 3: 'Happy', 4: 'Neutral', 5: 'Sad', 6: 'Surprise'}
 emotion_colors = {0: (0,0,255), 1: (0,166,0), 2: (211,0,148), 3: (0,255,255), 4: (255,255,255), 5: (255,191,0), 6: (0,140,255)}
@@ -37,7 +37,7 @@ def detect_from_video():
         rect, face, image = face_detector(frame)
 
         if np.sum([face]) != 0.0:
-            roi = face.astype("float") / 255.0
+            roi = face.astype("float")
             roi = img_to_array(roi)
             roi = np.expand_dims(roi, axis=0)
 
