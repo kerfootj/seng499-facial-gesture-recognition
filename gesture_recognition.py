@@ -41,7 +41,7 @@ def detect_from_video():
         rect, face, image = face_detector(frame)
 
         if np.sum([face]) != 0.0:
-            roi = face.astype("float") / 255.0
+            roi = face.astype("float")
             roi = img_to_array(roi)
             roi = np.expand_dims(roi, axis=0)
 
